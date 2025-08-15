@@ -6,6 +6,7 @@
   <title>Dos Reps</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
 <header>
@@ -37,7 +38,7 @@
 
 <!-- Sección Planes -->
 <!-- Sección Planes -->
-<section id="planes" class="section-bg">
+<section id="planes">
   <h2>Nuestros Planes</h2>
   <div class="planes-grid">
     <div class="plan-card">
@@ -74,3 +75,15 @@
     </div>
   </div>
 </section>
+
+</section>
+
+<script>
+  const hdr = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('scrolled', window.scrollY > 50);
+  });
+</script>
+</body>
+</html>
+
