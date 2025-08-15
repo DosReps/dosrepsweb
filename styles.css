@@ -1,0 +1,248 @@
+/* =========================
+   Dos Reps – styles.css
+   ========================= */
+
+/* Paleta */
+:root{
+  --baby:#FDFFFC;
+  --blue:#235789;
+  --red:#FF0000;
+  --black:#000000;
+
+  /* Alturas del header (para compensar contenido) */
+  --header-h-desktop: 84px;
+  --header-h-mobile: 72px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; }
+body { background: var(--black); color: var(--baby); font-family: Arial, Helvetica, sans-serif; }
+
+/* =========================
+   Header global
+   ========================= */
+header{
+  position: fixed; top:0; left:0; right:0; z-index:1000;
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 14px 28px;
+  background: rgba(0,0,0,1);
+  transition: background .3s ease, padding .3s ease;
+}
+header.scrolled{
+  background: rgba(0,0,0,.35);
+  padding: 8px 22px;
+  backdrop-filter: blur(6px);
+}
+.header__logo{
+  height: 56px;
+  transition: height .3s ease;
+}
+header.scrolled .header__logo{ height: 40px; }
+
+nav{
+  display:flex; align-items:center;
+  gap: clamp(10px, 2vw, 20px);
+}
+nav a{
+  color: var(--baby);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: .2px;
+  white-space: nowrap;
+  transition: background .2s ease, transform .2s ease;
+}
+nav a:hover{
+  background: rgba(255,255,255,.18);
+  transform: translateY(-1px);
+}
+
+/* Espaciador para que el header fijo no tape contenido */
+.header-spacer{
+  height: var(--header-h-desktop);
+}
+@media (max-width: 520px){
+  .header-spacer{ height: var(--header-h-mobile); }
+  .header__logo{ height: 46px; }
+  header.scrolled .header__logo{ height: 34px; }
+  nav a{ padding: 4px 8px; font-size: 14px; }
+}
+
+/* =========================
+   HERO (Home) – video
+   ========================= */
+.hero{ position: relative; }
+.hero video{
+  width:100%; height:auto; display:block;
+}
+.hero-text{
+  position:absolute; inset:auto 0 8% 0;
+  text-align:center; padding: 0 16px;
+}
+.hero-text h1{ margin:0 0 6px 0; font-size: clamp(24px, 5vw, 48px); }
+.hero-text p{ margin:0; font-size: clamp(14px, 2.4vw, 18px); opacity:.95; }
+
+/* =========================
+   PLANES (Home)
+   ========================= */
+#planes{
+  position: relative;
+  background: url('img/Fondo2.jpg') center/cover no-repeat;
+  padding: 40px 20px;    /* compacta la altura como pediste */
+}
+#planes h2{
+  text-align:center; margin: 0 0 18px 0;
+  font-size: clamp(22px, 3vw, 32px);
+}
+
+.planes-grid{
+  max-width: 1200px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 26px;
+  justify-items: center;
+}
+.plan-card{
+  background: rgba(0,0,0,.85);
+  border-radius: 12px;
+  overflow: hidden;
+  width: 400px;                 /* más grande que antes */
+  box-shadow: 0 10px 24px rgba(0,0,0,.45);
+  transition: transform .25s ease, box-shadow .25s ease;
+  text-align:center;
+}
+.plan-card:hover{
+  transform: scale(1.04);
+  box-shadow: 0 16px 40px rgba(0,0,0,.6);
+}
+.plan-card img{ width:100%; height:auto; display:block; }
+.plan-card h3{ margin: 12px 12px 10px; font-size: 1.2rem; }
+
+/* Botón reutilizable */
+.btn-primary{
+  position:relative; display:inline-block; margin: 0 0 16px;
+  padding: 12px 22px;
+  background:#FFD700; color:#000;
+  font-weight: 800; border:none; border-radius: 8px;
+  cursor:pointer; text-decoration:none; overflow:hidden; z-index:1;
+  transition: color .4s ease;
+}
+.btn-primary::before{
+  content:""; position:absolute; inset:0; width:0%; height:100%;
+  background:#FF0000; z-index:-1; transition: width .4s ease;
+}
+.btn-primary:hover::before{ width:100%; }
+.btn-primary:hover{ color:#fff; }
+
+@media (max-width: 1100px){
+  .planes-grid{ grid-template-columns: repeat(2, minmax(260px, 1fr)); }
+}
+@media (max-width: 760px){
+  .planes-grid{ grid-template-columns: 1fr; }
+  .plan-card{ width: 92vw; max-width: 520px; }
+}
+
+/* =========================
+   DETALLE (Rutina / Online / 1a1)
+   ========================= */
+.detail-hero{
+  background: url('img/fondo.jpg') center/cover no-repeat;
+  min-height: calc(100vh - var(--header-h-desktop));  /* ocupa toda la pantalla visible */
+  display:flex; align-items: center;
+  padding: 24px 20px 28px;
+}
+@media (max-width: 520px){
+  .detail-hero{
+    min-height: calc(100vh - var(--header-h-mobile));
+  }
+}
+
+.detail-wrap{
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 36px;
+  background: rgba(0,0,0,.74);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.55);
+}
+.detail-left img{ width:100%; height:auto; display:block; border-radius: 10px; }
+.detail-right h1{ margin: 0 0 10px 0; font-size: clamp(20px, 2.6vw, 32px); }
+.breadcrumb{ font-size:.9rem; opacity:.9; margin-bottom: 8px; }
+
+.detail-section{ margin-top: 16px; }
+.detail-list{ line-height: 1.65; padding-left: 18px; }
+.detail-list li{ margin: 6px 0; }
+
+@media (max-width: 900px){
+  .detail-wrap{ grid-template-columns: 1fr; }
+}
+
+/* Select + precio dinámico (legible en tema oscuro) */
+.select-row{ margin: 12px 0 8px 0; }
+.select-row label{ font-weight:700; margin-right:8px; color: var(--baby); }
+.select-row select{
+  background:#FDFFFC; color:#000;
+  border:1px solid rgba(255,255,255,.15);
+  padding:10px 12px; border-radius:8px; outline:none; appearance:auto;
+}
+.dynamic-price{
+  margin-top:8px; font-weight:900; font-size:1.15rem; color: var(--red);
+}
+
+/* Accordion (detalles) */
+.accordion{ margin:14px 0; }
+.accordion summary{
+  cursor:pointer; padding:10px 12px;
+  border-radius:8px; background: rgba(255,255,255,.08);
+  font-weight:700;
+}
+.accordion div{ padding: 10px 12px; }
+
+/* =========================
+   Footer (opcional)
+   ========================= */
+footer{
+  text-align:center; padding: 18px 10px; color: #cfcfcf; font-size: .9rem;
+  background: rgba(0,0,0,.6);
+}
+.price {
+  color: #FF0000;
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+.btn-primary {
+  display: inline-block;
+  background-color: #ffcc00; /* Color amarillo original */
+  color: #000;
+  padding: 15px 50px; /* Aumenta el largo horizontal */
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.btn-primary:hover {
+  background-color: #e60000; /* Rojo en hover */
+  transform: scale(1.05);
+}
+.btn-primary {
+  display: block;        /* Cambia de inline a bloque */
+  width: 100%;           /* Ocupa todo el ancho disponible */
+  background-color: #ffcc00;
+  color: #000;
+  padding: 15px 0;       /* Espaciado vertical uniforme */
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #e60000;
+  color: #fff;
+}
