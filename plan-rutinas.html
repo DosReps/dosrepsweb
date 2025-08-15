@@ -64,6 +64,9 @@
   // Ajustá los valores a gusto:
   const PRICES = { '13': 20000, '46': 40000 };
 
+  const hdr = document.querySelector('header');
+  addEventListener('scroll', ()=> hdr.classList.toggle('scrolled', scrollY>50));
+
   const select = document.getElementById('planOption');
   const priceEl = document.getElementById('price');
   const btn = document.getElementById('waBtn');
@@ -82,3 +85,4 @@
 </script>
 </body>
 </html>
+
