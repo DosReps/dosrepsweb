@@ -87,7 +87,7 @@ nav a:hover{
    PLANES (Home)
    ========================= */
 #planes {
-  background: url('img/Fondo2.jpg') center/cover no-repeat;
+  background: url('img/fondo2.jpg') center/cover no-repeat;
   padding: 40px 20px;
 }   /* compacta la altura como pediste */
 }
@@ -246,6 +246,7 @@ footer{
   background-color: #e60000;
   color: #fff;
 }
+
 
 
 
