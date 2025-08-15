@@ -65,6 +65,9 @@
   const WHATSAPP_NUMBER = '5491154053326';
   const PRICES = { '13': 40000, '46': 60000 };
 
+  const hdr = document.querySelector('header');
+  addEventListener('scroll', ()=> hdr.classList.toggle('scrolled', scrollY>50));
+
   const select = document.getElementById('planOption');
   const priceEl = document.getElementById('price');
   const btn = document.getElementById('waBtn');
@@ -83,3 +86,4 @@
 </script>
 </body>
 </html>
+
