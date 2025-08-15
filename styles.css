@@ -246,6 +246,34 @@ footer{
   background-color: #e60000;
   color: #fff;
 }
+/* ===== Header: negro arriba → transparente al scrollear + más chico ===== */
+header{
+  position: fixed;
+  top:0; left:0; right:0;
+  z-index: 1000;
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 14px 24px;
+  background: rgba(0,0,0,1);              /* negro al inicio */
+  transition: background .25s ease, padding .25s ease;
+}
+.header__logo{
+  height: 56px;
+  transition: height .25s ease;
+}
+
+/* Al scrollear: fondo transparente y header un poco más chico */
+header.scrolled{
+  background: rgba(0,0,0,0) !important;   /* transparente */
+  padding: 8px 20px;
+}
+header.scrolled .header__logo{ height: 40px; }
+
+/* El espaciador evita que el contenido suba debajo del header */
+.header-spacer{ height: 84px; }   /* ajustá si cambiás el alto */
+@media (max-width: 520px){
+  .header-spacer{ height: 72px; }
+}
+
 
 
 
