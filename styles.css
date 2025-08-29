@@ -550,6 +550,52 @@ body::before{
   #planes .plan-card p{ font-size: 0.9rem; }
   #planes .price{ font-size: 1.05rem; }
 }
+/* =========================================================
+   MÓVILES: Fondo FIJO y a pantalla completa (sin huecos)
+   ========================================================= */
+
+/* No dejes otros fondos compitiendo */
+html, body{ background: transparent !important; }
+
+/* Fondo global fijo que ocupa TODA la pantalla del celular */
+@media (max-width: 760px), (pointer: coarse){
+  body{ position: relative; }
+
+  body::before{
+    content:"";
+    position: fixed !important;   /* fijo en móviles */
+    left: 0; top: 0;
+    width: 100vw;
+    height: 100vh;                /* fallback */
+    z-index: -1;
+    background: url("img/Fondo1.png") center center / cover no-repeat;
+    background-attachment: fixed; /* insistimos en fixed */
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  /* Usar unidades de viewport modernas para cubrir TODO (según soporte) */
+  @supports (height: 100svh) { body::before{ height: 100svh; } }
+  @supports (height: 100lvh) { body::before{ height: 100lvh; } }
+  @supports (height: 100dvh) { body::before{ height: 100dvh; } }
+
+  /* Respaldo específico: duplicar el fondo detrás de #planes */
+  #planes{
+    position: relative;
+    background: transparent !important;
+  }
+  #planes::before{
+    content:"";
+    position: absolute; inset: 0;
+    z-index: -1; pointer-events: none;
+    background: url("img/Fondo1.png") center center / cover no-repeat;
+    background-attachment: fixed; /* mismo efecto “fijo” dentro de la sección */
+  }
+}
+
+/* Aseguramos otras secciones transparentes para ver el fondo */
+#planes, .detail-hero{ background: transparent !important; }
+
 
 
 
