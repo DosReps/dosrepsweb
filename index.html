@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dos Reps</title>
+  <meta name="description" content="Rutinas, asesorías online y entrenamiento 1 a 1. Entrená con seguimiento real y progresión clara." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+</head>
+
+<body>
+  <!-- ===== Preloader (pantalla de carga, 4s) ===== -->
+  <div id="preloader">
+    <img src="img/mancuerna.png" alt="Cargando..." class="spinner" />
+  </div>
+
+  <!-- ===== Header ===== -->
+  <header>
+    <a href="index.html" aria-label="Ir al inicio">
+      <img src="img/DosReps3.png" class="header__logo" alt="Dos Reps" />
+    </a>
+    <nav>
+      <a href="index.html" aria-current="page">Inicio</a>
+      <a href="#planes">Planes</a>
+    </nav>
+  </header>
+  <div class="header-spacer" aria-hidden="true"></div>
+
+  <!-- ===== HERO con imagen responsive (desktop/móvil) ===== -->
+  <section class="hero" id="inicio">
+    <picture>
+      <!-- Móvil -->
+      <source media="(max-width: 640px)" srcset="img/BannerMovil.png" />
+      <!-- Desktop (fallback) -->
+      <img
+        src="img/BannerPC.png"
+        alt="Dos Reps - Entrená con seguimiento real y progresión clara"
+        class="hero-video"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </picture>
+  </section>
+
+  <!-- ===== CINTA de Tipos de Entrenamiento ===== -->
+  <section class="train-tags" aria-labelledby="tags-title">
+    <h2 id="tags-title" class="sr-only">Tipos de entrenamiento</h2>
+    <div class="tags-mask">
+      <div class="tags-track left">
+        <div class="tags-row">
+          <span class="tag">Hipertrofia</span><span class="tag">Fuerza Máxima</span><span class="tag">Resistencia</span>
+          <span class="tag">Potencia</span><span class="tag">Pliometría</span><span class="tag">Flexibilidad</span>
+          <span class="tag">Movilidad</span><span class="tag">Rehabilitación</span><span class="tag">HIIT</span>
+          <span class="tag">Cross Training</span><span class="tag">Calistenia</span><span class="tag">Powerlifting</span>
+          <span class="tag">Weightlifting</span><span class="tag">Core</span><span class="tag">Estabilidad</span>
+          <span class="tag">Velocidad</span><span class="tag">Intervalos</span><span class="tag">Circuitos</span>
+          <span class="tag">Funcional</span><span class="tag">Cardio</span><span class="tag">Técnica</span>
+          <span class="tag">Balance</span><span class="tag">Recuperación</span>
+        </div>
+        <div class="tags-row">
+          <span class="tag">Hipertrofia</span><span class="tag">Fuerza Máxima</span><span class="tag">Resistencia</span>
+          <span class="tag">Potencia</span><span class="tag">Pliometría</span><span class="tag">Flexibilidad</span>
+          <span class="tag">Movilidad</span><span class="tag">Rehabilitación</span><span class="tag">HIIT</span>
+          <span class="tag">Cross Training</span><span class="tag">Calistenia</span><span class="tag">Powerlifting</span>
+          <span class="tag">Weightlifting</span><span class="tag">Core</span><span class="tag">Estabilidad</span>
+          <span class="tag">Velocidad</span><span class="tag">Intervalos</span><span class="tag">Circuitos</span>
+          <span class="tag">Funcional</span><span class="tag">Cardio</span><span class="tag">Técnica</span>
+          <span class="tag">Balance</span><span class="tag">Recuperación</span>
+        </div>
+      </div>
+      <div class="tags-track right">
+        <div class="tags-row">
+          <span class="tag">Hipertrofia</span><span class="tag">Fuerza Resistencia</span><span class="tag">Endurance</span>
+          <span class="tag">Pliometría</span><span class="tag">Potencia</span><span class="tag">Movilidad</span>
+          <span class="tag">HIIT</span><span class="tag">Cross Training</span><span class="tag">Funcional</span>
+          <span class="tag">Calistenia</span><span class="tag">Core</span><span class="tag">Estabilidad</span>
+          <span class="tag">Técnica</span><span class="tag">Circuitos</span><span class="tag">Rehabilitación</span>
+          <span class="tag">Velocidad</span><span class="tag">Cardio</span><span class="tag">Powerlifting</span>
+        </div>
+        <div class="tags-row">
+          <span class="tag">Hipertrofia</span><span class="tag">Fuerza Resistencia</span><span class="tag">Endurance</span>
+          <span class="tag">Pliometría</span><span class="tag">Potencia</span><span class="tag">Movilidad</span>
+          <span class="tag">HIIT</span><span class="tag">Cross Training</span><span class="tag">Funcional</span>
+          <span class="tag">Calistenia</span><span class="tag">Core</span><span class="tag">Estabilidad</span>
+          <span class="tag">Técnica</span><span class="tag">Circuitos</span><span class="tag">Rehabilitación</span>
+          <span class="tag">Velocidad</span><span class="tag">Cardio</span><span class="tag">Powerlifting</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Sección Planes (GRID en desktop / CARRUSEL en móviles) ===== -->
+  <section id="planes" aria-labelledby="planes-title">
+    <h2 id="planes-title">Planes</h2>
+
+    <div class="planes-carousel" id="planesCarousel" aria-roledescription="carousel" aria-label="Planes">
+      <button class="carousel-btn prev" aria-label="Anterior" type="button">‹</button>
+
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          <article class="plan-card" data-title="Rutinas">
+            <a href="plan-rutinas.html">
+              <img src="img/1.png" alt="Rutinas 1 a 6 días" loading="lazy" />
+            </a>
+            <h3><a href="plan-rutinas.html" class="plan-link">Rutinas</a></h3>
+            <p>1 a 6 días</p>
+            <div class="price">Desde $20.000</div>
+          </article>
+
+          <article class="plan-card" data-title="Asesorías online">
+            <a href="plan-online.html">
+              <img src="img/2.png" alt="Asesorías online mensuales" loading="lazy" />
+            </a>
+            <h3><a href="plan-online.html" class="plan-link">Asesorías online</a></h3>
+            <p>Mensuales</p>
+            <div class="price">Desde $30.000</div>
+          </article>
+
+          <article class="plan-card" data-title="Asesoramiento 1 a 1">
+            <a href="plan-1a1.html">
+              <img src="img/3.png" alt="Asesoramiento 1 a 1 mensual" loading="lazy" />
+            </a>
+            <h3><a href="plan-1a1.html" class="plan-link">Asesoramiento 1 a 1</a></h3>
+            <p>Mensual</p>
+            <div class="price">Desde $40.000</div>
+          </article>
+        </div>
+      </div>
+
+      <button class="carousel-btn next" aria-label="Siguiente" type="button">›</button>
+
+      <div class="carousel-dots" role="tablist" aria-label="Páginas del carrusel">
+        <button class="dot is-active" role="tab" aria-selected="true" aria-label="Rutinas"></button>
+        <button class="dot" role="tab" aria-selected="false" aria-label="Asesorías online"></button>
+        <button class="dot" role="tab" aria-selected="false" aria-label="Asesoramiento 1 a 1"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== JS (header scroll + preloader 4s + tilt 3D + carrusel móvil) ===== -->
+  <script>
+    // Header
+    const hdr = document.querySelector('header');
+    addEventListener('scroll', () => hdr.classList.toggle('scrolled', scrollY>50));
+
+    // Preloader 4s
+    const preloader = document.getElementById('preloader');
+    const start = Date.now();
+    addEventListener('load', () => {
+      const remaining = Math.max(0, 1000 - (Date.now() - start));
+      setTimeout(() => {
+        preloader.classList.add('hide');
+        setTimeout(() => preloader.remove(), 900);
+      }, remaining);
+    });
+
+    // Tilt 3D (solo desktop / no táctil)
+    (function(){
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const coarse = matchMedia('(pointer: coarse)').matches;
+      if (reduce || coarse) return;
+
+      const TILT_MAX = 10, SCALE = 1.02;
+      document.querySelectorAll('#planes .plan-card').forEach(card => {
+        let rafId = null;
+        function onMove(e){
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width;
+          const y = (e.clientY - r.top) / r.height;
+          const rx = (0.5 - y) * (TILT_MAX*2);
+          const ry = (x - 0.5) * (TILT_MAX*2);
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(() => {
+            card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) scale(${SCALE})`;
+            card.style.boxShadow = '0 16px 36px rgba(0,0,0,.55)';
+          });
+        }
+        function onLeave(){ if (rafId) cancelAnimationFrame(rafId); card.style.transform = 'none'; card.style.boxShadow=''; }
+        card.addEventListener('mousemove', onMove);
+        card.addEventListener('mouseleave', onLeave);
+      });
+    })();
+
+    // Carrusel móvil (una tarjeta visible, flechas, dots, swipe). En desktop se vuelve grid via CSS
+    (function(){
+      const carousel = document.getElementById('planesCarousel');
+      const viewport = carousel.querySelector('.carousel-viewport');
+      const track = carousel.querySelector('.carousel-track');
+      const slides = Array.from(track.children);
+      const prev = carousel.querySelector('.carousel-btn.prev');
+      const next = carousel.querySelector('.carousel-btn.next');
+      const dots = Array.from(carousel.querySelectorAll('.dot'));
+
+      let index = 0;
+      const isMobile = () => matchMedia('(max-width: 760px)').matches;
+
+      function slideTo(i, smooth = true){
+        const total = slides.length;
+        index = (i + total) % total; // infinito
+        const x = viewport.clientWidth * index;
+        viewport.scrollTo({ left: x, behavior: smooth ? 'smooth' : 'instant' });
+        updateDots();
+      }
+      function updateDots(){
+        dots.forEach((d, i) => {
+          d.classList.toggle('is-active', i === index);
+          d.setAttribute('aria-selected', i === index ? 'true' : 'false');
+        });
+      }
+
+      // Botones
+      prev.addEventListener('click', () => slideTo(index - 1));
+      next.addEventListener('click', () => slideTo(index + 1));
+      dots.forEach((d, i) => d.addEventListener('click', () => slideTo(i)));
+
+      // Actualizar índice al hacer scroll táctil
+      let raf;
+      viewport.addEventListener('scroll', () => {
+        if (!isMobile()) return;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const w = viewport.clientWidth || 1;
+          index = Math.round(viewport.scrollLeft / w);
+          updateDots();
+        });
+      });
+
+      // Swipe helper (más responsivo que solo scroll)
+      let startX = 0, lastX = 0, isDragging = false;
+      viewport.addEventListener('pointerdown', (e) => {
+        if (!isMobile()) return;
+        isDragging = true;
+        startX = lastX = e.clientX;
+        viewport.setPointerCapture(e.pointerId);
+      });
+      viewport.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        lastX = e.clientX;
+      });
+      viewport.addEventListener('pointerup', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        const dx = lastX - startX;
+        const threshold = viewport.clientWidth * 0.15; // 15% del ancho
+        if (dx < -threshold) slideTo(index + 1);
+        else if (dx > threshold) slideTo(index - 1);
+        else slideTo(index); // volver al actual
+      });
+
+      // Ajustar al resize
+      addEventListener('resize', () => {
+        if (isMobile()) slideTo(index, false);
+        else viewport.scrollTo({ left: 0, behavior: 'instant' });
+      });
+
+      // Inicio
+      slideTo(0, false);
+    })();
+  </script>
+</body>
+</html>
