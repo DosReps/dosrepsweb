@@ -1,292 +1,556 @@
-/* =========================================================
-   Dos Reps – styles.css (LIMPIO y unificado)
-   - Fondo global en todas las páginas (sin “pegado” en móvil)
-   - Header con efecto al scrollear
-   - Hero con imagen
-   - Cinta de etiquetas animadas (infinita)
-   - Planes: GRID en desktop / CARRUSEL en móviles
-   - Cards grandes, texto blanco, precios y chips #ff2525
-   - Páginas de detalle
-   - Botón primario
-   - Preloader
-   ========================================================= */
+/* =========================
+   Dos Reps – styles.css (COMPLETO)
+   ========================= */
 
-/* ---------------------
-   Variables editables
---------------------- */
+/* ===== Variables globales =====
+   Podés AJUSTAR el tamaño de las tarjetas y separación acá:
+   --card-min-desktop: ancho mínimo de cada tarjeta en desktop
+   --card-gap-desktop: separación entre tarjetas en desktop
+   --card-gap-mobile : separación en móviles
+*/
 :root{
   --baby:#FDFFFC;
-  --brand:#ff2525;              /* rojo para precios y chips */
-  --black:#000;
+  --blue:#235789;
+  --red:#FF0000;           /* rojo base general */
+  --brand-accent:#ff2525;  /* rojo pedidos (precios y chips) */
+  --black:#000000;
 
   --header-h-desktop: 84px;
   --header-h-mobile: 72px;
 
-  /* Tamaño tarjetas desktop */
-  --card-min-desktop: 360px;    /* subí a 380/400 si querés más grandes */
-  --card-gap-desktop: 48px;
+  /* Tamaño tarjetas (EDITABLES) */
+  --card-min-desktop: 311px;  /* ← subí a 380/400 si querés aún más grandes */
+  --card-gap-desktop: 48px;   /* ← separación entre tarjetas en desktop */
+  --card-gap-mobile: 12px;    /* ← separación en móviles */
 
-  /* Carrusel móvil */
-  --mobile-break: 760px;
-
-  /* Cinta de etiquetas */
+  /* Velocidades de la cinta (EDITABLES) */
   --marquee-speed-1: 26s;
   --marquee-speed-2: 34s;
-  --tag-font: 1rem;
-  --tag-pad-y: 10px;
-  --tag-pad-x: 16px;
-  --tag-gap: 12px;
-  --track-gap: 10px;
 }
 
-/* ---------------------
-   Reset base + fondo global
---------------------- */
-*{ box-sizing:border-box; }
-html, body{ margin:0; padding:0; min-height:100%; }
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; height:100%; }
+body {
+  color: var(--baby);
+  font-family: Arial, Helvetica, sans-serif;
 
-html{
-  background: #000 url('img/Fondo1.png') center/cover no-repeat;
-  background-attachment: scroll;           /* móvil fluido (sin jank) */
+  /* Fondo global en TODAS las páginas */
+  background-color: #000; /* fallback */
+  background-image: url('img/Fondo1.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
-body{ color: var(--baby); font-family: Arial, Helvetica, sans-serif; background: transparent; }
-
-/* En escritorio podés mantener efecto “fijo” */
-@media (min-width: 1024px) and (pointer: fine){
-  html{ background-attachment: fixed; }
+@media (max-width: 768px){
+  body{ background-attachment: scroll; } /* performance en mobile */
 }
 
-/* ---------------------
+/* =========================
    Header
---------------------- */
+   ========================= */
 header{
-  position:fixed; inset:0 0 auto 0; z-index:1000;
+  position: fixed; top:0; left:0; right:0; z-index:1000;
   display:flex; align-items:center; justify-content:space-between;
-  padding:14px 28px; background: rgba(0,0,0,1);
+  padding: 14px 28px;
+  background: rgba(0,0,0,1);
   transition: background .3s ease, padding .3s ease;
 }
-.header__logo{ height:56px; transition: height .3s ease; }
-
+.header__logo{ height: 56px; transition: height .3s ease; }
 header.scrolled{
   background: rgba(0,0,0,.35);
   backdrop-filter: blur(6px);
-  padding:8px 22px;
+  padding: 8px 22px;
 }
-header.scrolled .header__logo{ height:40px; }
-
-nav{ display:flex; gap: clamp(10px,2vw,20px); align-items:center; }
+header.scrolled .header__logo{ height: 40px; }
+nav{
+  display:flex; align-items:center;
+  gap: clamp(10px, 2vw, 20px);
+}
 nav a{
-  color:var(--baby); text-decoration:none; padding:6px 10px; border-radius:6px;
-  font-weight:600; letter-spacing:.2px; white-space:nowrap;
+  color: var(--baby);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: .2px;
+  white-space: nowrap;
   transition: background .2s ease, transform .2s ease;
 }
-nav a:hover{ background: rgba(255,255,255,.18); transform: translateY(-1px); }
-
+nav a:hover{
+  background: rgba(255,255,255,.18);
+  transform: translateY(-1px);
+}
 /* Espaciador para que el header fijo no tape contenido */
 .header-spacer{ height: var(--header-h-desktop); }
 @media (max-width: 520px){
   .header-spacer{ height: var(--header-h-mobile); }
-  .header__logo{ height:46px; }
-  header.scrolled .header__logo{ height:34px; }
-  nav a{ padding:4px 8px; font-size:14px; }
-}
-/* En móviles, quitamos blur por rendimiento */
-@media (max-width: 768px), (pointer: coarse){
-  header.scrolled{ backdrop-filter:none; background: rgba(0,0,0,.55); }
+  .header__logo{ height: 46px; }
+  header.scrolled .header__logo{ height: 34px; }
+  nav a{ padding: 4px 8px; font-size: 14px; }
 }
 
-/* ---------------------
-   Hero (imagen)
---------------------- */
-.hero{ position:relative; }
-.hero-picture, .hero-video, .hero img{
-  width:100%; height:auto; display:block; object-fit:cover;
-}
+/* =========================
+   HERO (Home) – imagen
+   ========================= */
+.hero{ position: relative; }
+.hero-video{ width:100%; height:auto; display:block; object-fit: cover; }
 
-/* ---------------------
-   Cinta de etiquetas moviéndose
---------------------- */
+/* =========================
+   CINTA de etiquetas en movimiento (chips)
+   ========================= */
+
+/* Accesibilidad: oculto visual para titulares auxiliares */
 .sr-only{
   position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
-.train-tags{ padding:14px 0 6px; overflow:hidden; }
-.tags-mask{ max-width:1400px; margin:0 auto; padding:8px 0; backdrop-filter: blur(4px); }
+
+.train-tags{
+  padding: 14px 0 6px;
+  overflow: hidden;
+}
+.tags-mask{
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 8px 0;
+  backdrop-filter: blur(4px);
+}
+
+/* Pistas que se desplazan de manera infinita */
 .tags-track{
-  display:flex; width:max-content; gap:32px; user-select:none; will-change:transform;
-  animation-timing-function: linear; animation-iteration-count: infinite;
+  display: flex;
+  width: max-content;
+  gap: 32px;
+  user-select: none;
+  will-change: transform;
+  pointer-events: auto;
+  /* ANIMACIÓN INFINITA Y SIN PAUSA */
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
-.tags-track + .tags-track{ margin-top: var(--track-gap); }
-.tags-row{ display:inline-flex; gap: var(--tag-gap); }
+.tags-track + .tags-track{ margin-top: 10px; }
+
+/* Filas duplicadas para loop perfecto (0 → -50%) */
+.tags-row{
+  display: inline-flex;
+  gap: 12px;
+}
+
+/* Chip / etiqueta */
 .tag{
-  display:inline-flex; align-items:center;
-  padding: var(--tag-pad-y) var(--tag-pad-x);
-  border-radius:999px; background: var(--brand); color:#fff;
-  border:1px solid rgba(255,255,255,.18);
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--brand-accent);
+  border: 1px solid rgba(255,255,255,.18);
+  color: #fff;
   box-shadow: 0 4px 14px rgba(0,0,0,.28);
-  font-weight:700; font-size: var(--tag-font); letter-spacing:.2px; white-space:nowrap;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: .2px;
+  white-space: nowrap;
 }
+
+/* Direcciones y velocidades (podés editar --marquee-speed-1/2 arriba) */
 .tags-track.left  { animation-name: marquee-left;  animation-duration: var(--marquee-speed-1); }
 .tags-track.right { animation-name: marquee-right; animation-duration: var(--marquee-speed-2); }
-@keyframes marquee-left  { from{transform:translate3d(0,0,0)} to{transform:translate3d(-50%,0,0)} }
-@keyframes marquee-right { from{transform:translate3d(-50%,0,0)} to{transform:translate3d(0,0,0)} }
-/* No pausar al hover */
-.tags-track:hover{ animation-play-state: running !important; }
-/* Accesibilidad */
-@media (prefers-reduced-motion: reduce){ .tags-track{ animation:none !important; } }
 
-/* ---------------------
-   Planes – título sección
---------------------- */
-#planes{ padding: 40px 20px; background: transparent; }
-#planes h2{
-  text-align:center; margin:0 0 18px 0; font-size: clamp(22px,3vw,32px);
+/* IMPORTANTE: que NO se pause al pasar el mouse */
+.tags-track:hover{ animation-play-state: running !important; }
+
+/* Menos movimiento: apagar animaciones (accesibilidad) */
+@media (prefers-reduced-motion: reduce){
+  .tags-track{ animation: none !important; }
 }
 
-/* ---------------------
-   Planes – GRID (desktop) y CARRUSEL (móviles)
---------------------- */
+/* Keyframes: con el contenido duplicado, -50% engancha sin salto */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
 
-/* Desktop: grid de 3 */
-.planes-carousel{ position:relative; max-width:1300px; margin:0 auto; }
-.carousel-viewport{ overflow: visible; }
-.carousel-track{
-  display:grid;
+/* =========================
+   PLANES (Home) – grilla
+   ========================= */
+#planes{ padding: 40px 20px; }
+#planes h2{
+  text-align:center; margin: 0 0 18px 0;
+  font-size: clamp(22px, 3vw, 32px);
+}
+
+/* Grilla con tarjetas GRANDES en desktop. Podés cambiar --card-min-desktop y --card-gap-desktop arriba */
+#planes .planes-grid{
+  max-width: 1300px;              /* un toque más ancho para tarjetas grandes */
+  margin: 0 auto;
+  display: grid;
   grid-template-columns: repeat(3, minmax(var(--card-min-desktop), 1fr));
   gap: var(--card-gap-desktop);
+  justify-items: stretch;
+  perspective: 1000px;            /* para notar el 3D (tilt) */
 }
 
-/* Ocultar controles en desktop */
-.carousel-btn, .carousel-dots{ display:none; }
-
-/* Móvil: carrusel 1x */
-@media (max-width: var(--mobile-break)){
-  .carousel-viewport{
-    overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
-  }
-  .carousel-track{ display:flex; gap:0; }
-  .carousel-track > .plan-card{ flex:0 0 100%; scroll-snap-align:start; }
-
-  .carousel-btn{
-    display:grid; place-items:center;
-    position:absolute; top:50%; transform:translateY(-50%);
-    width:42px; height:42px; border-radius:50%;
-    background: rgba(0,0,0,.65); color:#fff; font-size:24px; font-weight:900;
-    border:1px solid rgba(255,255,255,.18); box-shadow:0 6px 16px rgba(0,0,0,.35);
-    z-index:5; user-select:none; -webkit-tap-highlight-color:transparent;
-  }
-  .carousel-btn.prev{ left:8px; }
-  .carousel-btn.next{ right:8px; }
-
-  .carousel-dots{
-    display:flex; gap:8px; justify-content:center; margin-top:10px;
-  }
-  .carousel-dots .dot{
-    width:8px; height:8px; border-radius:999px; border:none; padding:0;
-    background: rgba(255,255,255,.35);
-  }
-  .carousel-dots .dot.is-active{
-    background: var(--brand);
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--brand) 25%, transparent);
-  }
-}
-
-/* ---------------------
-   Tarjeta de plan
---------------------- */
+/* Tarjeta base (más grande) */
 #planes .plan-card{
   background: rgba(0,0,0,.85);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:12px; overflow:hidden; text-align:center;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+  text-align:center;
   box-shadow: 0 10px 24px rgba(0,0,0,.45);
+
+  /* Tilt fallback (el JS lo mejora) */
   transform-style: preserve-3d;
   transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  will-change: transform;
 }
 #planes .plan-card img{ width:100%; height:auto; display:block; }
-#planes .plan-card h3{ margin:14px 14px 8px; font-size:1.35rem; color:#fff; }
-#planes .plan-card p{ font-size:1rem; color:#fff; }
-.plan-link{ color:inherit; text-decoration:none; }
+#planes .plan-card h3{
+  margin: 14px 14px 8px;
+  font-size: 1.35rem;    /* ↑ título más grande */
+  color: #fff;           /* letra blanca */
+}
+#planes .plan-card p{
+  font-size: 1rem;       /* ↑ texto más grande */
+  color: #fff;           /* letra blanca */
+}
+.plan-link{ color: inherit; text-decoration: none; }
 
-/* Hover/fallback si JS de tilt no corre (solo desktop) */
-@media (min-width: 1024px) and (pointer: fine){
-  #planes .plan-card:hover{
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 16px 36px rgba(0,0,0,.55);
-    border-color: rgba(255,255,255,.18);
+/* Hover/fallback si JS no está activo */
+#planes .plan-card:hover{
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 16px 36px rgba(0,0,0,.55);
+  border-color: rgba(255,0,0,.35);
+}
+
+/* Precio (global y en Planes) – en #ff2525 */
+.price,
+.dynamic-price{
+  color: var(--brand-accent) !important;
+  font-weight: 800;
+  font-size: 1.25rem;   /* ↑ precio un poco más grande */
+}
+
+/* Mantener 3 columnas también en pantallas medianas */
+@media (max-width: 1100px){
+  #planes .planes-grid{
+    grid-template-columns: repeat(3, minmax(260px, 1fr));
+    gap: clamp(24px, 3vw, 40px);
   }
 }
 
-/* Precio (global + internas) */
-.price, .dynamic-price{
-  color: var(--brand) !important;
-  font-weight:800;
-  font-size:1.25rem;
+/* En móviles: 3 por fila, tarjetas más compactas */
+@media (max-width: 760px){
+  #planes .planes-grid{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--card-gap-mobile);
+  }
+  #planes .plan-card h3{ font-size: 0.95rem; }
+  #planes .plan-card p{ font-size: 0.85rem; }
+  .price{ font-size: 0.95rem; }
+  #planes .plan-card{ padding-bottom: 8px; }
 }
 
-/* ---------------------
-   Páginas de detalle
---------------------- */
+/* Menos movimiento o pantalla táctil: suavizar hover 3D */
+@media (prefers-reduced-motion: reduce){
+  #planes .plan-card{ transition: box-shadow .15s ease, border-color .15s ease; }
+  #planes .plan-card:hover{ transform: none; }
+}
+@media (pointer: coarse){
+  #planes .plan-card:hover{ transform: none; }
+}
+
+/* =========================
+   DETALLE (Rutina / Online / 1a1)
+   ========================= */
 .detail-hero{
+  /* sin fondo propio: se ve el global */
   min-height: calc(100vh - var(--header-h-desktop));
-  display:flex; align-items:center; padding:24px 20px 28px;
+  display:flex; align-items: center;
+  padding: 24px 20px 28px;
 }
 @media (max-width: 520px){
   .detail-hero{ min-height: calc(100vh - var(--header-h-mobile)); }
 }
+
 .detail-wrap{
-  max-width:1200px; margin:0 auto;
-  display:grid; grid-template-columns:1fr 1fr; gap:36px;
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 36px;
   background: rgba(0,0,0,.74);
-  border-radius:14px; padding:22px;
+  border-radius: 14px;
+  padding: 22px;
   box-shadow: 0 10px 30px rgba(0,0,0,.55);
 }
-@media (max-width: 900px){ .detail-wrap{ grid-template-columns:1fr; } }
-.detail-left img{ width:100%; height:auto; display:block; border-radius:10px; }
-.detail-right h1{ margin:0 0 10px; font-size: clamp(20px,2.6vw,32px); }
-.breadcrumb{ font-size:.9rem; opacity:.9; margin-bottom:8px; }
+.detail-left img{ width:100%; height:auto; display:block; border-radius: 10px; }
+.detail-right h1{ margin: 0 0 10px 0; font-size: clamp(20px, 2.6vw, 32px); }
+.breadcrumb{ font-size:.9rem; opacity:.9; margin-bottom: 8px; }
 
-.select-row{ margin:12px 0 8px; }
-.select-row label{ font-weight:700; margin-right:8px; color:var(--baby); }
+.detail-section{ margin-top: 16px; }
+.detail-list{ line-height: 1.65; padding-left: 18px; }
+.detail-list li{ margin: 6px 0; }
+
+@media (max-width: 900px){
+  .detail-wrap{ grid-template-columns: 1fr; }
+}
+
+/* Select + precio dinámico */
+.select-row{ margin: 12px 0 8px 0; }
+.select-row label{ font-weight:700; margin-right:8px; color: var(--baby); }
 .select-row select{
-  background:#FDFFFC; color:#000; border:1px solid rgba(255,255,255,.15);
+  background:#FDFFFC; color:#000;
+  border:1px solid rgba(255,255,255,.15);
   padding:10px 12px; border-radius:8px; outline:none; appearance:auto;
 }
-.dynamic-price{ margin-top:8px; }
+.dynamic-price{
+  margin-top:8px; font-weight:900; font-size:1.15rem;
+  /* color ya forzado arriba a var(--brand-accent) */
+}
 
-/* ---------------------
+/* Accordion */
+.accordion{ margin:14px 0; }
+.accordion summary{
+  cursor:pointer; padding:10px 12px;
+  border-radius:8px; background: rgba(255,255,255,.08);
+  font-weight:700;
+}
+.accordion div{ padding: 10px 12px; }
+
+/* =========================
    Botón primario
---------------------- */
+   ========================= */
 .btn-primary{
-  display:block; width:100%;
-  background:#ffcc00; color:#000;
-  padding:15px 0; font-size:1.2rem; font-weight:bold; text-align:center;
-  border-radius:8px; text-decoration:none;
+  display: block; width: 100%;
+  background-color: #ffcc00; color:#000;
+  padding: 15px 0;
+  font-size: 1.2rem; font-weight: bold; text-align: center;
+  border-radius: 8px; text-decoration: none;
   transition: transform .25s ease, background-color .25s ease, color .25s ease;
 }
-.btn-primary:hover{ background:#e60000; color:#fff; transform: scale(1.03); }
+.btn-primary:hover{
+  background-color:#e60000; color:#fff; transform: scale(1.03);
+}
 
-/* ---------------------
+/* =========================
    Footer (opcional)
---------------------- */
+   ========================= */
 footer{
-  text-align:center; padding:18px 10px; color:#cfcfcf; font-size:.9rem;
+  text-align:center; padding: 18px 10px; color: #cfcfcf; font-size: .9rem;
   background: rgba(0,0,0,.6);
 }
 
-/* ---------------------
-   Preloader
---------------------- */
-#preloader{
-  position:fixed; inset:0; background:#000;
-  display:flex; align-items:center; justify-content:center; z-index:2000;
+/* =========================
+   Preloader (pantalla de carga)
+   ========================= */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
 }
-#preloader .spinner{
-  width:90px; height:90px; filter: drop-shadow(0 0 6px var(--brand));
+#preloader img.spinner {
+  width: 90px; height: 90px;
   animation: spin 1.5s linear infinite;
+  filter: drop-shadow(0 0 6px var(--brand-accent));
 }
-@keyframes spin{ from{ transform:rotate(0) } to{ transform:rotate(360deg) } }
-#preloader.hide{
-  opacity:0; visibility:hidden; transition: opacity .8s ease, visibility .8s ease;
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
+#preloader.hide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+/* =========================
+   CINTA de etiquetas (versión grande)
+   ========================= */
+
+/* Ajustes manuales (tocate estos valores) */
+:root{
+  /* Tamaño y espaciado de los chips */
+  --tag-font: 1.2rem;         /* ↑ texto más grande (p. ej. 1.3rem) */
+  --tag-pad-y: 20px;          /* ↑ alto del chip (p. ej. 14px) */
+  --tag-pad-x: 22px;          /* ↑ ancho lateral (p. ej. 26px) */
+  --tag-gap: 18px;            /* ↑ espacio entre chips */
+  --track-gap: 18px;          /* ↑ separación vertical entre filas */
+  --tags-vert-pad: 18px;      /* ↑ padding vertical de la sección */
+  --tags-maxw: 1600px;        /* ancho máximo visible de la cinta */
+
+  /* Velocidades (si querés más lento para leer mejor) */
+  --marquee-speed-1: 30s;     /* antes: 26s */
+  --marquee-speed-2: 38s;     /* antes: 34s */
+}
+
+/* Sección más alta y ancha */
+.train-tags{
+  padding: calc(var(--tags-vert-pad) + 8px) 0 var(--tags-vert-pad);
+}
+.tags-mask{
+  max-width: var(--tags-maxw);
+  padding: 12px 0;            /* ↑ alto “visual” de la franja */
+}
+
+/* Más separación entre pistas */
+.tags-track + .tags-track{
+  margin-top: var(--track-gap);
+}
+
+/* Chips más grandes y con más espacio entre ellos */
+.tags-row{ gap: var(--tag-gap); }
+.tag{
+  padding: var(--tag-pad-y) var(--tag-pad-x);
+  font-size: var(--tag-font);
+  background: #ff2525 !important; /* color pedido */
+  color: #fff !important;
+  border-color: rgba(255,255,255,.18);
+}
+
+/* Asegurar animación infinita, sin pausa y sin “saltos” */
+.tags-track{
+  animation-timing-function: linear !important;
+  animation-iteration-count: infinite !important;
+  will-change: transform;
+}
+.tags-track:hover{ animation-play-state: running !important; }
+
+/* Keyframes con translate3d para evitar micro-cortes por subpíxeles */
+@keyframes marquee-left {
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(-50%,0,0); }
+}
+@keyframes marquee-right {
+  from { transform: translate3d(-50%,0,0); }
+  to   { transform: translate3d(0,0,0); }
+}
+
+/* Responsive: un toque más compacto en móviles, pero grande igual */
+@media (max-width: 760px){
+  :root{
+    --tag-font: 1.05rem;      /* seguís pudiendo subir/bajar a gusto */
+    --tag-pad-y: 10px;
+    --tag-pad-x: 16px;
+    --tag-gap: 12px;
+    --track-gap: 14px;
+    --tags-vert-pad: 12px;
+    --tags-maxw: 100%;        /* ocupa todo el ancho del viewport */
+  }
+  .tags-mask{ padding: 8px 0; }
+}
+/* ===== Fondo a pantalla completa (también en móviles) ===== */
+html, body{
+  background: transparent !important;   /* anulamos el fondo anterior */
+  height: 100%;
+}
+body{
+  position: relative;                    /* para anclar el ::before */
+}
+
+/* Capa fija detrás de todo el contenido */
+body::before{
+  content: "";
+  position: fixed;                       /* cubre incluso si hay scroll largo */
+  inset: 0;
+  z-index: -1;                           /* debajo del contenido */
+  background: url("img/Fondo1.png") center center / cover no-repeat;
+  will-change: transform;                /* suaviza en iOS/Android */
+  transform: translateZ(0);
+}
+
+/* Asegurar que se vea el fondo global (por si alguna sección tenía fondo) */
+#planes,
+.detail-hero{
+  background: transparent !important;
+}
+/* ====== Carrusel de Planes: mobile (1 tarjeta visible) / desktop (grid) ====== */
+
+/* Contenedor general */
+.planes-carousel{
+  position: relative;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Viewport y track */
+.carousel-viewport{
+  overflow: visible; /* desktop por defecto */
+}
+.carousel-track{
+  display: grid; /* desktop → grid de 3 */
+  grid-template-columns: repeat(3, minmax(var(--card-min-desktop, 360px), 1fr));
+  gap: var(--card-gap-desktop, 48px);
+}
+
+/* Botones y dots ocultos en desktop */
+.carousel-btn,
+.carousel-dots{ display: none; }
+
+/* ===== Mobile styles ===== */
+@media (max-width: 760px){
+  .carousel-viewport{
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .carousel-track{
+    display: flex;         /* pasa a carrusel */
+  }
+  .carousel-track > .plan-card{
+    flex: 0 0 100%;        /* 1 slide = 100% ancho viewport */
+    scroll-snap-align: start;
+  }
+
+  /* Flechas */
+  .carousel-btn{
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: rgba(0,0,0,.65);
+    color: #fff; font-size: 24px; font-weight: 900;
+    border: 1px solid rgba(255,255,255,.18);
+    box-shadow: 0 6px 16px rgba(0,0,0,.35);
+    z-index: 5;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .carousel-btn.prev{ left: 8px; }
+  .carousel-btn.next{ right: 8px; }
+
+  /* Dots */
+  .carousel-dots{
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .carousel-dots .dot{
+    width: 8px; height: 8px; border-radius: 999px;
+    background: rgba(255,255,255,.35);
+    border: none; padding: 0;
+  }
+  .carousel-dots .dot.is-active{
+    background: #ff2525;
+    box-shadow: 0 0 0 2px rgba(255,37,37,.25);
+  }
+
+  /* Ajustes de tipografía para legibilidad en móvil */
+  #planes .plan-card h3{ font-size: 1.05rem; }
+  #planes .plan-card p{ font-size: 0.9rem; }
+  #planes .price{ font-size: 1.05rem; }
+}
+
+
 
 
